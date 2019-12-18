@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Список задач</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <!-- <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Left</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="//codeply.com">Codeply</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+            </ul>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="tg://resolve?domain=osipov_vadim>">Created by Osipov Vadim</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="https://github.com/Osipov-Vadim/django-todo">
+                        <span class="glyphicon glyphicon-link" aria-hidden="true"></span>Sourse Code
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav> -->
+
+
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Сайт со списком задач</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Задачи<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Все</a></li>
+                        <li><a href="#">Выполненные</a></li>
+                        <li><a href="#">В работе</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="tg://resolve?domain=osipov_vadim>">
+                        <span class="glyphicon glyphicon-send"></span>  Created by Osipov Vadim</a>
+                </li>
+                <li><a href="https://github.com/Osipov-Vadim/django-todo">
+                        <span class="glyphicon glyphicon-link"></span>  Sourse Code</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+</body>
+
+</html>
