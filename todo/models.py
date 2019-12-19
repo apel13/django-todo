@@ -56,8 +56,18 @@ class Task(models.Model):
                              verbose_name=_('Метка'))
     status = models.CharField(max_length=15,
                               choices=TaskStatus.choices(),
-                              default=TaskStatus.PROGRESS,
+                              default=TaskStatus.PROGRESS.name,
                               verbose_name='Статус')
+
+    @classmethod
+    def create(cls, title, description):
+        task = cls(title=title, description=description)
+        return task
+
+    def complete(self):
+        self.status = TaskStatus.COMPLETED.name
+        self.status
+        return self
 
     def __unicode__(self):
         return str(self.title)

@@ -15,7 +15,9 @@
             <tr>
                 <th>Заголовок</th>
                 <th>Дедлайн</th>
+                <th>Метка</th>
                 <th>Статус</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -24,13 +26,27 @@
                 <th>
                     <a href="{% url 'todo_detail' todo.id %}" class="text-info">{{ todo.title }}</a>
                 </th>
-                <th>{{ todo.deadline }}</th>
+                <th>
+                    <p style="color:gray;">{{ todo.deadline }}</p>
+                </th>
+                <th>{{ todo.mark }}</th>
+
                 {% if todo.status == "COMPLETED" %}
-                    <th><p style="color:green;">{{ todo.get_status_display }}</p></th>
+                <th>
+                    <p>
+                        <a href="{% url 'completed_todo_list' %}" style="color:green;">{{ todo.get_status_display }}</a>
+                    </p>
+                </th>
+                <th></th>
                 {% else %}
-                <th><p style="color:red;">{{ todo.get_status_display }}</p></th>
+                <th>
+                    <p>
+                        <a href="{% url 'progress_todo_list' %}" style="color:red;">{{ todo.get_status_display }}</a>
+                    </p>
+                </th>
+                <th><a href="{% url 'todo_complete' todo.id %}"> <span style="color:green;" class="glyphicon glyphicon-ok"></span></a></th>
                 {% endif %}
-                <!-- <th></th> -->
+                
             </tr>
             {% endfor %}
         </tbody>

@@ -9,36 +9,34 @@ from django.views import View
 from .models import Mark, Task, TaskStatus
 from .forms import TaskUpdateForm, TaskCreateForm
 
-import datetime
-
-
-@require_http_methods(["GET", "POST"])
-def get_todo_list_t(request):
-    tasks = Task.objects.all()
-    categories = Task.objects.all()
-    if request.method == "POST":
-        if "taskAdd" in request.POST:
-            title = request.POST["description"]
-            date = str(request.POST["date"])
-            category = request.POST["category_select"]
-            content = title + " -- " + date + " " + category
-            Todo = Task(title=title, content=content, due_date=date, category=Category.objects.get(name=category))
-            Todo.save()
-            return redirect("/")
-
-        if "taskDelete" in request.POST:
-            checkedlist = request.POST["checkedbox"]
-            for todo_id in checkedlist:
-                todo = Task.objects.get(id=int(todo_id))
-                todo.delete()
-
-    return render(request, "index.html", {"todos": todos, "categories": categories})
-
 
 @require_http_methods(["GET"])
 def get_todo_list(request):
     todo_list = Task.objects.all()
-    return render(request, "todo_list.html", {"todo_list": todo_list})
+    return render_list_from_queryset(request, todo_list)
+
+
+@require_http_methods(["GET"])
+def get_progress_todo_list(request):
+    todo_list = Task.objects.filter(status=TaskStatus.PROGRESS.name)
+    return render_list_from_queryset(request, todo_list)
+
+
+@require_http_methods(["GET"])
+def get_completed_todo_list(request):
+    todo_list = Task.objects.filter(status=TaskStatus.COMPLETED.name)
+    return render_list_from_queryset(request, todo_list)
+
+
+def render_list_from_queryset(request, todo_queryset):
+    return render(request, "todo_list.html", {"todo_list": todo_queryset})
+
+
+def complete_todo(request, todo_id: int):
+    task = Task.objects.get(pk=todo_id)
+    task.complete()
+    task.save()
+    return redirect(reverse('todo_list'))
 
 
 class TodoCreateView(View):
@@ -92,3 +90,32 @@ class TodoDetailView(View):
     def delete(request, todo_id: int):
         Task.objects.filter(pk=todo_id).delete()
         return redirect(reverse('todo_list'))
+
+
+def init_db(request):
+    Mark.objects.all().delete()
+    Task.objects.all().delete()
+
+    mark_home = Mark.objects.create(name="Дом")
+    mark_work = Mark.objects.create(name="Работа")
+    mark_uni = Mark.objects.create(name="Вуз")
+    mark_product = Mark.objects.create(name="Продукты")
+
+    task_arch = Task.objects.create(title="Сделать лабораторную по проектированию",
+                                    description="Сделать лабораторную работу №7 и показать во вторник",
+                                    mark=mark_uni)
+    Task.objects.create(title="Купить молоко",
+                        description="Купить в пятерочке пискоревское молоко",
+                        mark=mark_product)
+    Task.objects.create(title="Здать курсовую работу по вебу",
+                        description="Доделать проект django-todo, составить отчет и сдать",
+                        mark=mark_uni)
+    Task.objects.create(title="Получить зарплату",
+                        description="Не забыть получить зарплату во вторник с:",
+                        mark=mark_work)
+    task_table = Task.objects.create(title="Починить стол",
+                                     description="-",
+                                     mark=mark_home)
+    task_arch.complete().save()
+    task_table.complete().save()
+    return redirect(reverse('todo_list'))

@@ -15,12 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from todo.views import get_todo_list
+from todo.views import complete_todo, get_todo_list, get_completed_todo_list, get_progress_todo_list, init_db
 from todo.views import TodoDetailView, TodoCreateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', get_todo_list, name="todo_list"),
+    path('completed/', get_completed_todo_list, name="completed_todo_list"),
+    path('progress/', get_progress_todo_list, name="progress_todo_list"),
     path('create/', TodoCreateView.as_view(), name="create_todo"),
     path('<int:todo_id>/', TodoDetailView.as_view(), name="todo_detail"),
+    path('<int:todo_id>/complete/', complete_todo, name="todo_complete"),
+    path('init/', init_db),
 ]

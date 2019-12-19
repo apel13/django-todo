@@ -16,54 +16,18 @@
 </head>
 
 <body>
-    <!-- <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Left</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="//codeply.com">Codeply</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-            </ul>
-        </div>
-        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="tg://resolve?domain=osipov_vadim>">Created by Osipov Vadim</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://github.com/Osipov-Vadim/django-todo">
-                        <span class="glyphicon glyphicon-link" aria-hidden="true"></span>Sourse Code
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav> -->
-
-
-
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">Сайт со списком задач</a>
+                <a class="navbar-brand" href="{% url 'todo_list' %}">Сайт со списком задач</a>
             </div>
             <ul class="nav navbar-nav">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Задачи<span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Все</a></li>
-                        <li><a href="#">Выполненные</a></li>
-                        <li><a href="#">В работе</a></li>
+                        <li><a href="{% url 'todo_list' %}">Все</a></li>
+                        <li><a href="{% url 'completed_todo_list' %}">Выполненные</a></li>
+                        <li><a href="{% url 'progress_todo_list' %}">В процессе</a></li>
                     </ul>
                 </li>
             </ul>
@@ -77,7 +41,6 @@
             </ul>
         </div>
     </nav>
-
     {% block content %}
     {% endblock %}
 </body>
