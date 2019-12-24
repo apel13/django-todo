@@ -5,26 +5,19 @@ services:
         build: ./nginx
         restart: always
         ports:
-        # - "8080:80"
         - "80:80"
         volumes:
-        - api_data:/docker_api
-        - ./log:/var/log/nginx
+        - ss_data:/home/docker/code
         depends_on:
-        - api
+        - app
 
     app:
         container_name: app-container
-        build: ./
+        build: ./django-todo
         restart: always
-        # command: uwsgi  --emperor uwsgi.ini
-        command: uwsgi --ini uwsgi.ini
-        # ports:
-        # - "8002:8000"
+        command: uwsgi --ini service-uwsgi.ini
         volumes:
-        - api_data:/docker_api
-        depends_on:
-        - db
+        - ss_data:/home/docker/code
 
 volumes:
-    socket_data:
+    ss_data:
